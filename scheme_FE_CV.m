@@ -81,7 +81,7 @@ end
 yt(2*N) = (qf1(N-1)*(phi(N) - phi(N-1)) + qf2(N-1)*(c(N) - c(N-1)))/hx + hx*G(N-1)*0.5;
 
 % Potential in solid (Anode) - FE Method
-yt(2*N+1) = I_t/A + sigma_s_a*(phis(2) - phis(1))/hx - F*hx*G(1)*0.5;
+yt(2*N+1) = I_t/A_a + sigma_s_a*(phis(2) - phis(1))/hx - F*hx*G(1)*0.5;
 for i = 2:NL-1
     yt(2*N+i) = sigma_s_a*(phis(i+1) - 2*phis(i) + phis(i-1))/hx - F*hx*(G(i-1) + G(i))*0.5;
 end
@@ -93,30 +93,30 @@ for i = NR+1:N-1
     j = i - NR + 1;  % starts from 2
     yt(2*N+NL+j) = sigma_s_c*(phis(i+1) - 2*phis(i) + phis(i-1))/hx - F*hx*(G(i-1) + G(i))*0.5;
 end
-yt(3*N+1-Ndelta) = -I_t/A - sigma_s_c*(phis(N) - phis(N-1))/hx - F*hx*G(N-1)*0.5;
+yt(3*N+1-Ndelta) = -I_t/A_c - sigma_s_c*(phis(N) - phis(N-1))/hx - F*hx*G(N-1)*0.5;
 
 % Concentration in solid (Anode) - CV Method
 for i = 1:NL
     indx = N_c_a+(i-1)*M;
-    yt(indx) = (Ds_a/a^2)*pi*(r(1) + r(2))^2*(y(indx+1) - y(indx))/dr;
+    yt(indx) = (Ds_a/a_a^2)*pi*(r(1) + r(2))^2*(y(indx+1) - y(indx))/dr;
     for j = 2:M-1
         indx = N_c_a+(i-1)*M-1+j;
-        yt(indx) = (Ds_a/a^2)*pi*((r(j+1) + r(j))^2*(y(indx+1) - y(indx)) - ...
-                                  (r(j) + r(j-1))^2*(y(indx) - y(indx-1)))/dr;
+        yt(indx) = (Ds_a/a_a^2)*pi*((r(j+1) + r(j))^2*(y(indx+1) - y(indx)) - ...
+                                    (r(j) + r(j-1))^2*(y(indx) - y(indx-1)))/dr;
     end
     indx = N_c_a+i*M-1;
-    yt(indx) = -4*pi/a*Gn(i) - (Ds_a/a^2)*pi*(r(M-1) + r(M))^2*(y(indx) - y(indx-1))/dr;
+    yt(indx) = -4*pi/a_a*Gn(i) - (Ds_a/a_a^2)*pi*(r(M-1) + r(M))^2*(y(indx) - y(indx-1))/dr;
 end
 
 % Concentration in solid (Cathode) - CV Method
 for i = NR:N
     indx = N_c_c+(i-NR)*M;
-    yt(indx) = (Ds_c/a^2)*pi*(r(1) + r(2))^2*(y(indx+1) - y(indx))/dr;
+    yt(indx) = (Ds_c/a_c^2)*pi*(r(1) + r(2))^2*(y(indx+1) - y(indx))/dr;
     for j = 2:M-1
         indx = N_c_c+(i-NR)*M-1+j;
-        yt(indx) = (Ds_c/a^2)*pi*((r(j+1) + r(j))^2*(y(indx+1) - y(indx)) - ...
-                                  (r(j) + r(j-1))^2*(y(indx) - y(indx-1)))/dr;
+        yt(indx) = (Ds_c/a_c^2)*pi*((r(j+1) + r(j))^2*(y(indx+1) - y(indx)) - ...
+                                    (r(j) + r(j-1))^2*(y(indx) - y(indx-1)))/dr;
     end
     indx = N_c_c+(i+1-NR)*M-1;
-    yt(indx) = -4*pi/a*Gn(i) - (Ds_c/a^2)*pi*(r(M-1) + r(M))^2*(y(indx) - y(indx-1))/dr;
+    yt(indx) = -4*pi/a_c*Gn(i) - (Ds_c/a_c^2)*pi*(r(M-1) + r(M))^2*(y(indx) - y(indx-1))/dr;
 end

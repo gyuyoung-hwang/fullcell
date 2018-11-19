@@ -3,7 +3,8 @@ function yt = scheme_FEM(t, y, x, r)
 
 parameters
 
-rx = r.*a;
+rx_a = r.*a_a;
+rx_c = r.*a_c;
 I_t = I_of_t(t, I0, t0);
 
 % Zero all
@@ -82,7 +83,7 @@ end
 yt(2*N) = (qf1(N-1)*(phi(N) - phi(N-1)) + qf2(N-1)*(c(N) - c(N-1)))/hx + hx*G(N-1)*0.5;
 
 % Potential in solid (Anode)
-yt(2*N+1) = I_t/A + sigma_s_a*(phis(2) - phis(1))/hx - F*hx*G(1)*0.5;
+yt(2*N+1) = I_t/A_a + sigma_s_a*(phis(2) - phis(1))/hx - F*hx*G(1)*0.5;
 for i = 2:NL-1
     yt(2*N+i) = sigma_s_a*(phis(i+1) - 2*phis(i) + phis(i-1))/hx - F*hx*(G(i-1) + G(i))*0.5;
 end
@@ -94,30 +95,30 @@ for i = NR+1:N-1
     j = i - NR + 1;  % starts from 2
     yt(2*N+NL+j) = sigma_s_c*(phis(i+1) - 2*phis(i) + phis(i-1))/hx - F*hx*(G(i-1) + G(i))*0.5;
 end
-yt(3*N+1-Ndelta) = -I_t/A - sigma_s_c*(phis(N) - phis(N-1))/hx - F*hx*G(N-1)*0.5;
+yt(3*N+1-Ndelta) = -I_t/A_c - sigma_s_c*(phis(N) - phis(N-1))/hx - F*hx*G(N-1)*0.5;
 
 % Concentration in solid (Anode)
 for i = 1:NL
     indx = N_c_a+(i-1)*M;
-    yt(indx) = 0.25*Ds_a*(y(indx+1) - y(indx))/hr^2;
+    yt(indx) = 0.25*Ds_a*(y(indx+1) - y(indx))/hr_a^2;
     for j = 2:M-1
         indx = N_c_a+(i-1)*M-1+j;
-        yt(indx) = Ds_a*0.25*((rx(j+1) + rx(j))^2*(y(indx+1) - y(indx)) - ...
-                              (rx(j-1) + rx(j))^2*(y(indx) - y(indx-1)))/hr^4;
+        yt(indx) = Ds_a*0.25*((rx_a(j+1) + rx_a(j))^2*(y(indx+1) - y(indx)) - ...
+                              (rx_a(j-1) + rx_a(j))^2*(y(indx) - y(indx-1)))/hr_a^4;
     end
     indx = N_c_a+i*M-1;
-    yt(indx) = -a^2*Gn(i)/hr^3 - (a - 0.5*hr)^2/hr^4*Ds_a*(y(indx) - y(indx-1));
+    yt(indx) = -a_a^2*Gn(i)/hr_a^3 - (a_a - 0.5*hr_a)^2/hr_a^4*Ds_a*(y(indx) - y(indx-1));
 end
 
 % Concentration in solid (Cathode)
 for i = NR:N
     indx = N_c_c+(i-NR)*M;
-    yt(indx) = 0.25*Ds_c*(y(indx+1) - y(indx))/hr^2;
+    yt(indx) = 0.25*Ds_c*(y(indx+1) - y(indx))/hr_c^2;
     for j = 2:M-1
         indx = N_c_c+(i-NR)*M-1+j;
-        yt(indx) = Ds_c*0.25*((rx(j+1) + rx(j))^2*(y(indx+1) - y(indx)) - ...
-                              (rx(j-1) + rx(j))^2*(y(indx) - y(indx-1)))/hr^4;
+        yt(indx) = Ds_c*0.25*((rx_c(j+1) + rx_c(j))^2*(y(indx+1) - y(indx)) - ...
+                              (rx_c(j-1) + rx_c(j))^2*(y(indx) - y(indx-1)))/hr_c^4;
     end
     indx = N_c_c+(i+1-NR)*M-1;
-    yt(indx) = -a^2*Gn(i)/hr^3 - (a - 0.5*hr)^2/hr^4*Ds_c*(y(indx) - y(indx-1));
+    yt(indx) = -a_c^2*Gn(i)/hr_c^3 - (a_c - 0.5*hr_c)^2/hr_c^4*Ds_c*(y(indx) - y(indx-1));
 end

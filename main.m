@@ -78,6 +78,7 @@ else
     time_pre = toc;
     t_max = max(t);
     disp(['Time: ' num2str(time_pre) ' seconds'])
+    disp(['Discharge time: ' num2str(t_max) ' seconds (' num2str(t_max/3600) ' hours)'])
 end
 
 % Start calculation for the output

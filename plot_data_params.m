@@ -37,7 +37,7 @@ x_axis = linspace(0, 1, pts);
 y_axis = Ueq_of_cs_cathode(x_axis.*cmax_c, cmax_c);
 subplot(2, 3, 4);
 plot(x_axis, y_axis, '.k');
-ylim([0 8]);
+%ylim([0 8]);
 title('');
 xlabel('c_s/c_{max}');
 ylabel('U_{eq} (Cathode) [V]');
