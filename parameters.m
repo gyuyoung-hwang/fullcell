@@ -7,8 +7,8 @@ M = 20;                 % number of nodes along radius of the particles
 NL = 40;                % anode/separator boundary
 NR = 60;                % separator/cathode boundary
 
-L = 1.2e-4;             % cell thickness, m
-L1 = 5e-5;              % anode thickness, m
+L = 2.2e-4;             % cell thickness, m
+L1 = 1e-4;              % anode thickness, m
 Ldelta = 2e-5;          % separator thickness, m
 L2 = L - L1 - Ldelta;   % cathode thickness, m
 L1d = L1 + Ldelta;      % cathode boundary coordinate, m
