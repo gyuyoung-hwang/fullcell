@@ -16,5 +16,10 @@ csn = cs/cmax;
 %          0.24 0.285 0.35 0.45 1 1.1];
 %Ueq = interp1(1 - cs_exp, V_exp, real(csn));
 
+% Analytical fit of the points above
+Ueq = 0.87643*exp(-80.7229*csn) + 0.0717649*exp(-11.1751*(csn-0.0515755)) - ...
+      0.00752717*tanh(178.2*(csn-0.238613)) - 0.0157348*tanh(30.019*(csn-0.529635)) - ...
+      0.931195*exp(22.9667*(csn-1.11242)) + 0.123513;
+
 % Constant for testing purpose
-Ueq = 0.2;
+%Ueq = 0.2;
