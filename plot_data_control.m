@@ -12,11 +12,11 @@ for i = 1:n_lines
     end
 end
 subplot(1, 2, 1);
-plot(t, y_axis, '-or', 'MarkerFaceColor', 'r');
+plot(t, 100*(y_axis-y_axis(1))/y_axis(1), '-or', 'MarkerFaceColor', 'r');
 xlim([0 t_max]);
 title('Lithium Conservation in liquid');
-xlabel('t [s]');
-ylabel('c total');
+xlabel('Time [s]');
+ylabel('Percentage deviation from initial value [%]');
 grid on;
 
 y_axis(1:n_lines) = 0;
@@ -33,9 +33,9 @@ for i = 1:n_lines
     end
 end
 subplot(1, 2, 2);
-plot(t, y_axis, '-or', 'MarkerFaceColor', 'r');
+plot(t, 100*(y_axis-y_axis(1))/y_axis(1), '-or', 'MarkerFaceColor', 'r');
 xlim([0 t_max]);
 title('Lithium Conservation in solid');
-xlabel('t [s]');
-ylabel('c total');
+xlabel('Time [s]');
+ylabel('Percentage deviation from initial value');
 grid on;
