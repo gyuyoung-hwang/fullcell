@@ -53,7 +53,7 @@ el_s = 0.508;           % volume fraction of electrolyte
 B_s = el_s/1.67;        % permeability factor of electrolyte
 
 % Solver parameters
-V_stop = 1.0;           % stop simulation when the potential in solid (Cathode) reach Vstop, V
+V_stop = 1.0;           % stop simulation when the potential in solid (Anode) reach Vstop, V
 pre_Jacobian = false;   % use pre-generated Jacobian matrix (true/false)
 rel_tol = 1e-5;         % relative tolerance of solver
 abs_tol = 1e-5;         % absolute tolerance of solver
