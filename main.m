@@ -99,6 +99,7 @@ plot_data_params
 plot_data_solution
 plot_data_solution_cs
 plot_data_solution_phi_s
+plot_data_solution_VvsQ
 plot_data_control
 
 disp('...All done')
