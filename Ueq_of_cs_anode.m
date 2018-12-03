@@ -17,9 +17,34 @@ csn = cs/cmax;
 %Ueq = interp1(1 - cs_exp, V_exp, real(csn));
 
 % Analytical fit of the points above
-Ueq = 0.87643*exp(-80.7229*csn) + 0.0717649*exp(-11.1751*(csn-0.0515755)) - ...
-      0.00752717*tanh(178.2*(csn-0.238613)) - 0.0157348*tanh(30.019*(csn-0.529635)) - ...
-      0.931195*exp(22.9667*(csn-1.11242)) + 0.123513;
+%Ueq = 0.87643*exp(-80.7229*csn) + 0.0717649*exp(-11.1751*(csn-0.0515755)) - ...
+%      0.00752717*tanh(178.2*(csn-0.238613)) - 0.0157348*tanh(30.019*(csn-0.529635)) - ...
+%      0.931195*exp(22.9667*(csn-1.11242)) + 0.123513;
+
+% Graphite anode from Ecker, Käbitz, Laresgoiti et al.
+% Analytical fit (WebPlotDigitizer + gnuplot)
+a = 0.716502;
+b = 369.028;
+c = 0.12193;
+d = 35.6478;
+e = 0.0530947;
+g = 0.0169644;
+h = 27.1365;
+i = 0.312832;
+j = 0.0199313;
+k = 28.5697;
+m = 0.614221;
+n = 0.931153;
+o = 36.328;
+p = 1.10743;
+q = 0.140031;
+r = 0.0189193;
+s = 21.1967;
+t = 0.196176;
+
+x = csn;
+
+Ueq = a*exp(-b*x) + c*exp(-d*(x-e)) - r*tanh(s*(x-t)) - g*tanh(h*(x-i)) - j*tanh(k*(x-m)) - n*exp(o*(x-p)) + q;
 
 % Constant for testing purpose
 %Ueq = 0.2;

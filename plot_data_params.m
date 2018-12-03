@@ -15,16 +15,17 @@ xlabel('c_s/c_{max}');
 ylabel('U_{eq} (Anode) [V]');
 grid on;
 
-x_axis = linspace(0, cmax_a, pts);
+x_axis = linspace(0, 2*c0_a, pts);
 y_axis = D_of_c(x_axis);
 subplot(2, 3, 2);
 plot(x_axis, y_axis, '.k');
+ylim([1e-10 5e-10]);
 title('');
 xlabel('c [mol/m^3]');
 ylabel('D (Anode) [m^2/s]');
 grid on;
 
-x_axis = linspace(0, cmax_a/5, pts);
+x_axis = linspace(0, 2*c0_a, pts);
 y_axis = kappa_of_c(x_axis);
 subplot(2, 3, 3);
 plot(x_axis, y_axis, '.k');
@@ -43,16 +44,17 @@ xlabel('c_s/c_{max}');
 ylabel('U_{eq} (Cathode) [V]');
 grid on;
 
-x_axis = linspace(0, cmax_c, pts);
+x_axis = linspace(0, 2*c0_c, pts);
 y_axis = D_of_c(x_axis);
 subplot(2, 3, 5);
 plot(x_axis, y_axis, '.k');
+ylim([1e-10 5e-10]);
 title('');
 xlabel('c [mol/m^3]');
 ylabel('D (Cathode) [m^2/s]');
 grid on;
 
-x_axis = linspace(0, cmax_c/5, pts);
+x_axis = linspace(0, 2*c0_c, pts);
 y_axis = kappa_of_c(x_axis);
 subplot(2, 3, 6);
 plot(x_axis, y_axis, '.k');

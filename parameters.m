@@ -7,9 +7,9 @@ M = 20;                 % number of nodes along radius of the particles
 NL = 40;                % anode/separator boundary
 NR = 60;                % separator/cathode boundary
 
-L = 2.2e-4;             % cell thickness, m
-L1 = 1e-4;              % anode thickness, m
-Ldelta = 2e-5;          % separator thickness, m
+L = 147.2e-6;           % cell thickness, m
+L1 = 73.7e-6;           % anode thickness, m
+Ldelta = 19.0e-6;       % separator thickness, m
 L2 = L - L1 - Ldelta;   % cathode thickness, m
 L1d = L1 + Ldelta;      % cathode boundary coordinate, m
 
@@ -17,38 +17,40 @@ dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)
 hx = dx*L;              % constant grid step along X axis, m
 
-I0 = 1e-3;              % maximum current draw, A
+I0 = 4e-2;              % maximum current draw, A
 t0 = 0;                 % charge/discharge period (set 0 if I = I0 = const), s
 Rc = 1e-2;              % total contact resistance, Ohm
-tplus = 0.36;           % transference number
+tplus = 0.26;           % transference number
 
 % Anode parameters
-a_a = 1.1e-5;           % anode particle radius, m
-A_a = 1e-4;             % anode cross-sectional area, m^2
+a_a = 13.7e-6;          % anode particle radius, m
+act_a = 1 - 0.445;      % active part of anode
+A_a = 8.585e-3;         % anode cross-sectional area, m^2
 hr_a = dr*a_a;          % constant grid step along radius of the particles, m
 bet_a = pi/(2*a_a);     % BET (Brunauer-Emmett-Teller) surface area, m^-1
 k0_a = 3e-12;           % reaction rate constant, m^5/2 mol^-1/2 s^-1
-el_a = 0.4764;          % volume fraction of electrolyte
-B_a = el_a^1.5;         % permeability factor of electrolyte
-cmax_a = 18000;         % maximum concentration of Li ions in solid, mol m^-3
-sigma_s_a = 100;        % solid conductivity, S m^-1
-Ds_a = 9e-14;           % solid ionic diffusivity, m^2 s^-1
+el_a = 0.329;           % volume fraction of electrolyte
+B_a = el_a/2.03;        % permeability factor of electrolyte
+cmax_a = 31920;         % maximum concentration of Li ions in solid, mol m^-3
+sigma_s_a = 14;         % solid conductivity, S m^-1
+Ds_a = 1e-14;           % solid ionic diffusivity, m^2 s^-1 -- should depend on c
 
 % Cathode parameters
-a_c = 5e-8;             % cathode particle radius, m
-A_c = 1e-4;             % cathode cross-sectional area, m^2
+a_c = 6.49e-6;          % cathode particle radius, m
+act_c = 1 - 0.42;       % active part of cathode
+A_c = 8.585e-3;         % cathode cross-sectional area, m^2
 hr_c = dr*a_c;          % constant grid step along radius of the particles, m
 bet_c = pi/(2*a_c);     % BET (Brunauer-Emmett-Teller) surface area, m^-1
 k0_c = 3e-12;           % reaction rate constant, m^5/2 mol^-1/2 s^-1
-el_c = 0.4764;          % volume fraction of electrolyte
-B_c = el_c^1.5;         % permeability factor of electrolyte
-cmax_c = 18000;         % maximum concentration of Li ions in solid, mol m^-3
-sigma_s_c = 5e-1;       % solid conductivity, S m^-1
-Ds_c = 9e-14;           % solid ionic diffusivity, m^2 s^-1
+el_c = 0.296;           % volume fraction of electrolyte
+B_c = el_c/1.94;        % permeability factor of electrolyte
+cmax_c = 48580;         % maximum concentration of Li ions in solid, mol m^-3
+sigma_s_c = 68.1;       % solid conductivity, S m^-1
+Ds_c = 1e-13;           % solid ionic diffusivity, m^2 s^-1 -- should depend on c
 
 % Separator parameters
-el_s = 0.4764;          % volume fraction of electrolyte
-B_s = el_s^1.5;         % permeability factor of electrolyte
+el_s = 0.508;           % volume fraction of electrolyte
+B_s = el_s/1.67;        % permeability factor of electrolyte
 
 % Solver parameters
 V_stop = 1.0;           % stop simulation when the potential in solid (Cathode) reach Vstop, V
