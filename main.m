@@ -69,7 +69,7 @@ if t_end > 0
 else
     disp('Starting precursor calculation...')
     tic
-    t_out = linspace(0, 100000, 2);
+    t_out = linspace(0, 1000000, 2);
     if strcmp(Method, 'FE')
         [t,y] = ode15s(@(t,y) scheme_FEM(t, y, x, r), t_out, y0, opts);
     elseif strcmp(Method, 'CV')

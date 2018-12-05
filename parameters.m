@@ -2,13 +2,13 @@
 
 Method = 'CV';          % FE - Finite Elements Method, CV - Control Volume Method for the solid
 
-N = 100;                % number of nodes along X axis
+N = 148;                % number of nodes along X axis
 M = 20;                 % number of nodes along radius of the particles
-NL = 40;                % anode/separator boundary
-NR = 60;                % separator/cathode boundary
+NL = 74;                % anode/separator boundary
+NR = 93;                % separator/cathode boundary
 
-L = 147.2e-6;           % cell thickness, m
-L1 = 73.7e-6;           % anode thickness, m
+L = 148.0e-6;           % cell thickness, m
+L1 = 74.0e-6;           % anode thickness, m
 Ldelta = 19.0e-6;       % separator thickness, m
 L2 = L - L1 - Ldelta;   % cathode thickness, m
 L1d = L1 + Ldelta;      % cathode boundary coordinate, m
@@ -17,9 +17,9 @@ dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)
 hx = dx*L;              % constant grid step along X axis, m
 
-I0 = 4e-2;              % maximum current draw, A
+I0 = 1e-2;              % maximum current draw, A
 t0 = 0;                 % charge/discharge period (set 0 if I = I0 = const), s
-Rc = 1e-2;              % total contact resistance, Ohm
+Rc = 0;                 % total contact resistance, Ohm
 tplus = 0.26;           % transference number
 
 % Anode parameters
@@ -27,26 +27,26 @@ a_a = 13.7e-6;          % anode particle radius, m
 act_a = 1 - 0.445;      % active part of anode
 A_a = 8.585e-3;         % anode cross-sectional area, m^2
 hr_a = dr*a_a;          % constant grid step along radius of the particles, m
-bet_a = pi/(2*a_a);     % BET (Brunauer-Emmett-Teller) surface area, m^-1
-k0_a = 3e-12;           % reaction rate constant, m^5/2 mol^-1/2 s^-1
 el_a = 0.329;           % volume fraction of electrolyte
+bet_a = 3*(1-el_a)/a_a; % BET (Brunauer-Emmett-Teller) surface area, m^-1
+k0_a = 1.45e-11;        % reaction rate constant, m^5/2 mol^-1/2 s^-1
 B_a = el_a/2.03;        % permeability factor of electrolyte
-cmax_a = 31920;         % maximum concentration of Li ions in solid, mol m^-3
+cmax_a = 31920*act_a;   % maximum concentration of Li ions in solid, mol m^-3
 sigma_s_a = 14;         % solid conductivity, S m^-1
-Ds_a = 1e-14;           % solid ionic diffusivity, m^2 s^-1 -- should depend on c
+Ds_a = 1.0e-14;         % solid ionic diffusivity, m^2 s^-1 -- should depend on c
 
 % Cathode parameters
 a_c = 6.49e-6;          % cathode particle radius, m
 act_c = 1 - 0.42;       % active part of cathode
 A_c = 8.585e-3;         % cathode cross-sectional area, m^2
 hr_c = dr*a_c;          % constant grid step along radius of the particles, m
-bet_c = pi/(2*a_c);     % BET (Brunauer-Emmett-Teller) surface area, m^-1
-k0_c = 3e-12;           % reaction rate constant, m^5/2 mol^-1/2 s^-1
 el_c = 0.296;           % volume fraction of electrolyte
+bet_c = 3*(1-el_c)/a_c; % BET (Brunauer-Emmett-Teller) surface area, m^-1
+k0_c = 3.01e-11;        % reaction rate constant, m^5/2 mol^-1/2 s^-1
 B_c = el_c/1.94;        % permeability factor of electrolyte
-cmax_c = 48580;         % maximum concentration of Li ions in solid, mol m^-3
+cmax_c = 48580*act_c;   % maximum concentration of Li ions in solid, mol m^-3
 sigma_s_c = 68.1;       % solid conductivity, S m^-1
-Ds_c = 1e-13;           % solid ionic diffusivity, m^2 s^-1 -- should depend on c
+Ds_c = 1.0e-13;         % solid ionic diffusivity, m^2 s^-1 -- should depend on c
 
 % Separator parameters
 el_s = 0.508;           % volume fraction of electrolyte
@@ -65,15 +65,17 @@ n_lines = 21;           % number of lines to plot
 
 % Initial conditions
 c0_a = 1000;            % initial concentration of Li ions in the electrolyte in Anode, mol m^-3
-cs0_a = 0.95*cmax_a;    % initial concentration of Li ions in solid in Anode, mol m^-3
+                        % initial concentration of Li ions in solid in Anode, mol m^-3
+%cs0_a = 0.74*cmax_c*L2*(1-el_c)/(L1*(1-el_a));
+cs0_a = 0.60*cmax_c*L2*(1-el_c)*act_c/(L1*(1-el_a)*act_a);
 c0_c = 1000;            % initial concentration of Li ions in the electrolyte in Cathode, mol m^-3
-cs0_c = 0.05*cmax_c;    % initial concentration of Li ions in solid in Cathode, mol m^-3
+cs0_c = 0.26*cmax_c;    % initial concentration of Li ions in solid in Cathode, mol m^-3
 c0_s = 1000;            % initial concentration of Li ions in the electrolyte in the separator, mol m^-3
 
 % Other constants
 F = 96487;              % Faraday's constant, C mol^-1
 R = 8.3144;             % universal gas constant, J mol^-1 K^-1
-T = 298;                % absolute temperature, K
+T = 296;                % absolute temperature, K
 
 % Derived indexes
 Ndelta = NR - NL;                           % number of nodes for the separator

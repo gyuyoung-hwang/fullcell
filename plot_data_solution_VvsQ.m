@@ -11,11 +11,11 @@ end
 
 V_cathode(1:n_lines) = 0;
 for i = 1:n_lines
-    V_cathode = y(i, 3*N+NL-NR+1);
+    V_cathode(i) = y(i, 3*N+NL-NR+1);
 end
 
-plot(t.*I_of_t(t, I0, t0), V_cathode-V_anode+Rc*I_of_t(t, I0, t0), '-k');
+plot(t.*I_of_t(t, I0, t0)/3600*48, V_cathode-V_anode+Rc*I_of_t(t, I0, t0), '-k');
 title('');
-xlabel('Capacity [C]');
+xlabel('Capacity (pack of 48) [Ah]');
 ylabel('Total voltage [V]');
 grid on;

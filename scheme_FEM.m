@@ -47,7 +47,7 @@ for i = 1:N-1
     kappa_mid = kappa_of_c(c_mid);
     rtf_term = 2*R*T*(1 - tplus)/(c_mid*F^2);
 
-    qc1(i) = -B(i)*(D_of_c(c_mid) + kappa_mid*rtf_term*(1 - tplus));
+    qc1(i) = -B(i)*(D_of_c_Ecker(c_mid, T) + kappa_mid*rtf_term*(1 - tplus));
     qc2(i) = B(i)*kappa_mid*(1 - tplus)/F;
 
     qf1(i) = -B(i)*kappa_mid/F;

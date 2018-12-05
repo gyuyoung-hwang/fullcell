@@ -16,7 +16,7 @@ ylabel('U_{eq} (Anode) [V]');
 grid on;
 
 x_axis = linspace(0, 2*c0_a, pts);
-y_axis = D_of_c(x_axis);
+y_axis = D_of_c_Ecker(x_axis, T);
 subplot(2, 3, 2);
 plot(x_axis, y_axis, '.k');
 ylim([1e-10 5e-10]);
@@ -45,7 +45,7 @@ ylabel('U_{eq} (Cathode) [V]');
 grid on;
 
 x_axis = linspace(0, 2*c0_c, pts);
-y_axis = D_of_c(x_axis);
+y_axis = D_of_c_Ecker(x_axis, T);
 subplot(2, 3, 5);
 plot(x_axis, y_axis, '.k');
 ylim([1e-10 5e-10]);
