@@ -1,17 +1,19 @@
 %%% List of the model parameters %%%
 
-Method = 'CV';          % FE - Finite Elements Method, CV - Control Volume Method for the solid
+Method = 'FE';          % FE - Finite Elements Method, CV - Control Volume Method for the solid
 
-N = 148;                % number of nodes along X axis
+Nmm = 1;                % number of nodes per 10^-6 m in liquid
 M = 20;                 % number of nodes along radius of the particles
-NL = 74;                % anode/separator boundary
-NR = 93;                % separator/cathode boundary
 
 L = 148.0e-6;           % cell thickness, m
 L1 = 74.0e-6;           % anode thickness, m
 Ldelta = 19.0e-6;       % separator thickness, m
 L2 = L - L1 - Ldelta;   % cathode thickness, m
 L1d = L1 + Ldelta;      % cathode boundary coordinate, m
+
+N = round(L*1e6*Nmm) + 1;               % number of nodes along X axis
+NL = round(L1*1e6*Nmm) + 1;             % anode/separator boundary
+NR = round((L1 + Ldelta)*1e6*Nmm) + 1;  % separator/cathode boundary
 
 dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)

@@ -19,7 +19,7 @@ for i = 1:n_lines
     end
 end
 
-subplot(1, 2, 1);
+subplot(1, 3, 1);
 plot(t, y_axis_a(:, 1:n_lines), '-k');
 xlim([0 t_max]);
 title('');
@@ -27,12 +27,20 @@ xlabel('t [s]');
 ylabel('\phi_s (Anode) [V]');
 grid on;
 
-subplot(1, 2, 2);
+subplot(1, 3, 2);
 plot(t, y_axis_c(:, 1:n_lines), '-k');
 xlim([0 t_max]);
 title('');
 xlabel('t [s]');
 ylabel('\phi_s (Cathode) [V]');
+grid on;
+
+subplot(1, 3, 3);
+plot(t, y(:, 3*N+NL-NR+1) - y(:, 2*N+1) + Rc*I_of_t(t, I0, t0), '-k');
+xlim([0 t_max]);
+title('');
+xlabel('t [s]');
+ylabel('Total voltage [V]');
 grid on;
 
 filename = 'fullcell_phi_s.xlsx';

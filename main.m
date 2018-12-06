@@ -13,6 +13,7 @@ elseif strcmp(Method, 'CV')
 else
     disp('The Method should be either FE or CV in parameters.m')
 end
+disp(['Grid N x M: ' num2str(N) ' x ' num2str(M) ' nodes'])
 
 % Non-dimensional computational grid
 x = linspace(0, 1, N);
