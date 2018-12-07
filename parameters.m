@@ -19,10 +19,11 @@ dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)
 hx = dx*L;              % constant grid step along X axis, m
 
-I0 = 1e-2;              % maximum current draw, A
+I0 = 0.15625;           % maximum current draw (1C current = 0.15625 A), A
 t0 = 0;                 % charge/discharge period (set 0 if I = I0 = const), s
 Rc = 0;                 % total contact resistance, Ohm
 tplus = 0.26;           % transference number
+C_SEI = 0.068;          % capacity loss due to SEI
 
 % Anode parameters
 a_a = 13.7e-6;          % anode particle radius, m
@@ -51,6 +52,7 @@ sigma_s_c = 68.1;       % solid conductivity, S m^-1
 Ds_c = 1.0e-13;         % solid ionic diffusivity, m^2 s^-1 -- should depend on c
 
 % Separator parameters
+A_s = A_a;              % separator cross-sectional area, m^2
 el_s = 0.508;           % volume fraction of electrolyte
 B_s = el_s/1.67;        % permeability factor of electrolyte
 
@@ -68,8 +70,8 @@ n_lines = 21;           % number of lines to plot
 % Initial conditions
 c0_a = 1000;            % initial concentration of Li ions in the electrolyte in Anode, mol m^-3
                         % initial concentration of Li ions in solid in Anode, mol m^-3
-%cs0_a = 0.74*cmax_c*L2*(1-el_c)/(L1*(1-el_a));
 cs0_a = 0.60*cmax_c*L2*(1-el_c)*act_c/(L1*(1-el_a)*act_a);
+%cs0_a = (0.74-C_SEI)*cmax_c*L2*(1-el_c)/(L1*(1-el_a));
 c0_c = 1000;            % initial concentration of Li ions in the electrolyte in Cathode, mol m^-3
 cs0_c = 0.26*cmax_c;    % initial concentration of Li ions in solid in Cathode, mol m^-3
 c0_s = 1000;            % initial concentration of Li ions in the electrolyte in the separator, mol m^-3
@@ -77,7 +79,7 @@ c0_s = 1000;            % initial concentration of Li ions in the electrolyte in
 % Other constants
 F = 96487;              % Faraday's constant, C mol^-1
 R = 8.3144;             % universal gas constant, J mol^-1 K^-1
-T = 296;                % absolute temperature, K
+T = 298;                % absolute temperature, K
 
 % Derived indexes
 Ndelta = NR - NL;                           % number of nodes for the separator
