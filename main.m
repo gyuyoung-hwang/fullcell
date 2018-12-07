@@ -4,7 +4,7 @@ clear all
 format long
 
 % Physical and simulation parameters
-parameters
+parameters_Ecker
 
 if strcmp(Method, 'FE')
     disp('MAIN Program: Full Cell -- FE Method')
@@ -20,7 +20,7 @@ r = linspace(0, 1, M);
 
 % Initial conditions
 Us0_a = Ueq_of_cs_anode(cs0_a, cmax_a);         % initial potential in solid (Anode), V
-Us0_c = Ueq_of_cs_cathode(cs0_c, cmax_c);       % initial potential in solid (Cathode), V
+Us0_c = Ueq_of_cs_cathode_Ecker(cs0_c, cmax_c); % initial potential in solid (Cathode), V
 y0 = zeros(1, N_end);                           % reset all
 y0(1:NL) = c0_a;                                % concentration of Li ions in liquid in Anode
 y0(NL+1:NR-1) = c0_s;                           % concentration of Li ions in liquid in the separator
@@ -69,11 +69,11 @@ if t_end > 0
 else
     disp('Starting precursor calculation...')
     tic
-    t_out = linspace(0, 100000, 2);
+    t_out = linspace(0, 1000000, 2);
     if strcmp(Method, 'FE')
         [t,y] = ode15s(@(t,y) scheme_FEM(t, y, x, r), t_out, y0, opts);
     elseif strcmp(Method, 'CV')
-        [t,y] = ode15s(@(t,y) scheme_FE_CV(t, y, x, r), t_out, y0, opts);
+        [t,y] = ode15s(@(t,y) scheme_FE_CV_Ecker(t, y, x, r), t_out, y0, opts);
     end
     time_pre = toc;
     t_max = max(t);
@@ -88,14 +88,14 @@ t_out = linspace(0, t_max, n_lines);
 if strcmp(Method, 'FE')
     [t,y] = ode15s(@(t,y) scheme_FEM(t, y, x, r), t_out, y0, opts);
 elseif strcmp(Method, 'CV')
-    [t,y] = ode15s(@(t,y) scheme_FE_CV(t, y, x, r), t_out, y0, opts);
+    [t,y] = ode15s(@(t,y) scheme_FE_CV_Ecker(t, y, x, r), t_out, y0, opts);
 end
 time_fin = toc;
 disp(['Time: ' num2str(time_fin) ' seconds'])
 
 % Output
 n_lines = size(t,1);
-plot_data_params
+plot_data_params_Ecker
 plot_data_solution
 plot_data_solution_cs
 plot_data_solution_phi_s
