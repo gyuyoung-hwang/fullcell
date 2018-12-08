@@ -52,6 +52,7 @@ sigma_s_c = 68.1;       % solid conductivity, S m^-1
 Ds_c = 3.2e-13*exp(-80600/(R*T))*exp(80600/(R*296)); % solid ionic diffusivity, m^2 s^-1
 
 % Separator parameters
+A_s = A_a;              % separator cross-sectional area, m^2
 el_s = 0.508;           % volume fraction of electrolyte
 B_s = el_s/1.67;        % permeability factor of electrolyte
 
