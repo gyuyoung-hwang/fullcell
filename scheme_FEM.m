@@ -100,25 +100,31 @@ yt(3*N+1-Ndelta) = -I_t/A_c - sigma_s_c*(phis(N) - phis(N-1))/hx - F*hx*G(N-1)*0
 % Concentration in solid (Anode)
 for i = 1:NL
     indx = N_c_a+(i-1)*M;
-    yt(indx) = 0.25*Ds_a*(y(indx+1) - y(indx))/hr_a^2;
+    yt(indx) = 0.25*Ds_of_cs_anode((y(indx+1) + y(indx))/2, cmax_a)*(y(indx+1) - y(indx))/hr_a^2;
     for j = 2:M-1
         indx = N_c_a+(i-1)*M-1+j;
-        yt(indx) = Ds_a*0.25*((rx_a(j+1) + rx_a(j))^2*(y(indx+1) - y(indx)) - ...
-                              (rx_a(j-1) + rx_a(j))^2*(y(indx) - y(indx-1)))/hr_a^4;
+        Ds_r = Ds_of_cs_anode((y(indx+1) + y(indx))/2, cmax_a);
+        Ds_l = Ds_of_cs_anode((y(indx-1) + y(indx))/2, cmax_a);
+        yt(indx) = 0.25*(Ds_r*(rx_a(j+1) + rx_a(j))^2*(y(indx+1) - y(indx)) - ...
+                         Ds_l*(rx_a(j-1) + rx_a(j))^2*(y(indx) - y(indx-1)))/hr_a^4;
     end
     indx = N_c_a+i*M-1;
-    yt(indx) = -a_a^2*Gn(i)/hr_a^3 - (a_a - 0.5*hr_a)^2/hr_a^4*Ds_a*(y(indx) - y(indx-1));
+    yt(indx) = -a_a^2*Gn(i)/hr_a^3 - ...
+        (a_a - 0.5*hr_a)^2/hr_a^4*Ds_of_cs_anode((y(indx-1) + y(indx))/2, cmax_a)*(y(indx) - y(indx-1));
 end
 
 % Concentration in solid (Cathode)
 for i = NR:N
     indx = N_c_c+(i-NR)*M;
-    yt(indx) = 0.25*Ds_c*(y(indx+1) - y(indx))/hr_c^2;
+    yt(indx) = 0.25*Ds_of_cs_cathode((y(indx+1) + y(indx))/2, cmax_c)*(y(indx+1) - y(indx))/hr_c^2;
     for j = 2:M-1
         indx = N_c_c+(i-NR)*M-1+j;
-        yt(indx) = Ds_c*0.25*((rx_c(j+1) + rx_c(j))^2*(y(indx+1) - y(indx)) - ...
-                              (rx_c(j-1) + rx_c(j))^2*(y(indx) - y(indx-1)))/hr_c^4;
+        Ds_r = Ds_of_cs_cathode((y(indx+1) + y(indx))/2, cmax_c);
+        Ds_l = Ds_of_cs_cathode((y(indx-1) + y(indx))/2, cmax_c);
+        yt(indx) = 0.25*(Ds_r*(rx_c(j+1) + rx_c(j))^2*(y(indx+1) - y(indx)) - ...
+                         Ds_l*(rx_c(j-1) + rx_c(j))^2*(y(indx) - y(indx-1)))/hr_c^4;
     end
     indx = N_c_c+(i+1-NR)*M-1;
-    yt(indx) = -a_c^2*Gn(i)/hr_c^3 - (a_c - 0.5*hr_c)^2/hr_c^4*Ds_c*(y(indx) - y(indx-1));
+    yt(indx) = -a_c^2*Gn(i)/hr_c^3 - ...
+        (a_c - 0.5*hr_c)^2/hr_c^4*Ds_of_cs_cathode((y(indx-1) + y(indx))/2, cmax_c)*(y(indx) - y(indx-1));
 end

@@ -8,7 +8,7 @@ figure('Name', 'Model Functions');
 
 x_axis = linspace(0, 1, pts);
 y_axis = Ueq_of_cs_anode(x_axis.*cmax_a, cmax_a);
-subplot(2, 3, 1);
+subplot(2, 4, 1);
 plot(x_axis, y_axis, '.k');
 title('');
 xlabel('c_s/c_{max}');
@@ -17,7 +17,7 @@ grid on;
 
 x_axis = linspace(0, 2*c0_a, pts);
 y_axis = D_of_c_and_T(x_axis, T);
-subplot(2, 3, 2);
+subplot(2, 4, 2);
 semilogy(x_axis, y_axis, '.k');
 title('');
 xlabel('c [mol/m^3]');
@@ -26,16 +26,25 @@ grid on;
 
 x_axis = linspace(0, 2*c0_a, pts);
 y_axis = kappa_of_c_and_T(x_axis, T);
-subplot(2, 3, 3);
+subplot(2, 4, 3);
 plot(x_axis, y_axis, '.k');
 title('');
 xlabel('c [mol/m^3]');
 ylabel('\kappa (Anode) [S/m]');
 grid on;
 
+x_axis = linspace(0, cmax_a, pts);
+y_axis = Ds_of_cs_anode(x_axis, cmax_a);
+subplot(2, 4, 4);
+semilogy(x_axis, y_axis, '.k');
+title('');
+xlabel('c [mol/m^3]');
+ylabel('Ds (Anode) [m^2/s]');
+grid on;
+
 x_axis = linspace(0, 1, pts);
 y_axis = Ueq_of_cs_cathode(x_axis.*cmax_c, cmax_c);
-subplot(2, 3, 4);
+subplot(2, 4, 5);
 plot(x_axis, y_axis, '.k');
 %ylim([0 8]);
 title('');
@@ -45,7 +54,7 @@ grid on;
 
 x_axis = linspace(0, 2*c0_c, pts);
 y_axis = D_of_c_and_T(x_axis, T);
-subplot(2, 3, 5);
+subplot(2, 4, 6);
 semilogy(x_axis, y_axis, '.k');
 title('');
 xlabel('c [mol/m^3]');
@@ -54,9 +63,18 @@ grid on;
 
 x_axis = linspace(0, 2*c0_c, pts);
 y_axis = kappa_of_c_and_T(x_axis, T);
-subplot(2, 3, 6);
+subplot(2, 4, 7);
 plot(x_axis, y_axis, '.k');
 title('');
 xlabel('c [mol/m^3]');
 ylabel('\kappa (Cathode) [S/m]');
+grid on;
+
+x_axis = linspace(0, cmax_c, pts);
+y_axis = Ds_of_cs_cathode(x_axis, cmax_c);
+subplot(2, 4, 8);
+semilogy(x_axis, y_axis, '.k');
+title('');
+xlabel('c [mol/m^3]');
+ylabel('Ds (Cathode) [m^2/s]');
 grid on;

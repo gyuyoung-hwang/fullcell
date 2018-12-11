@@ -1,6 +1,6 @@
 %%% List of the model parameters %%%
 
-Method = 'CV';          % FE - Finite Elements Method, CV - Control Volume Method for the solid
+Method = 'FE';          % FE - Finite Elements Method, CV - Control Volume Method for the solid
 
 Nmm = 1;                % number of nodes per 10^-6 m in liquid
 M = 20;                 % number of nodes along radius of the particles
@@ -19,7 +19,7 @@ dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)
 hx = dx*L;              % constant grid step along X axis, m
 
-I0 = 0.15625;           % maximum current draw (1C current = 0.15625 A), A
+I0 = 0.01;              % maximum current draw (1C current = 0.15625 A), A
 t0 = 0;                 % charge/discharge period (set 0 if I = I0 = const), s
 Rc = 0;                 % total contact resistance, Ohm
 tplus = 0.26;           % transference number
@@ -35,12 +35,12 @@ A_a = 8.585e-3;         % anode cross-sectional area, m^2
 hr_a = dr*a_a;          % constant grid step along radius of the particles, m
 el_a = 0.329;           % volume fraction of electrolyte
 bet_a = 3*(1-el_a)/a_a; % BET (Brunauer-Emmett-Teller) surface area, m^-1
-                        % reaction rate constant, m^5/2 mol^-1/2 s^-1
-k0_a = 1.99e-10*exp(-53400/(R*T))*exp(53400/(R*296));
 B_a = el_a/2.03;        % permeability factor of electrolyte
 cmax_a = 31920*act_a;   % maximum concentration of Li ions in solid, mol m^-3
 sigma_s_a = 14;         % solid conductivity, S m^-1
-                        % solid ionic diffusivity, m^2 s^-1
+% reaction rate constant, m^5/2 mol^-1/2 s^-1
+k0_a = 1.99e-10*exp(-53400/(R*T))*exp(53400/(R*296));
+% solid ionic diffusivity (for CV method only; for FE see Ds_of_cs_anode.m), m^2 s^-1
 Ds_a = 3.2e-13*exp(-30300/(R*T))*exp(30300/(R*296));
 
 % Cathode parameters
@@ -50,12 +50,12 @@ A_c = 8.585e-3;         % cathode cross-sectional area, m^2
 hr_c = dr*a_c;          % constant grid step along radius of the particles, m
 el_c = 0.296;           % volume fraction of electrolyte
 bet_c = 3*(1-el_c)/a_c; % BET (Brunauer-Emmett-Teller) surface area, m^-1
-                        % reaction rate constant, m^5/2 mol^-1/2 s^-1
-k0_c = 5.19e-11*exp(-43600/(R*T))*exp(43600/(R*296));
 B_c = el_c/1.94;        % permeability factor of electrolyte
 cmax_c = 48580*act_c;   % maximum concentration of Li ions in solid, mol m^-3
 sigma_s_c = 68.1;       % solid conductivity, S m^-1
-                        % solid ionic diffusivity, m^2 s^-1
+% reaction rate constant, m^5/2 mol^-1/2 s^-1
+k0_c = 5.19e-11*exp(-43600/(R*T))*exp(43600/(R*296));
+% solid ionic diffusivity (for CV method only; for FE see Ds_of_cs_cathode.m), m^2 s^-1
 Ds_c = 3.2e-13*exp(-80600/(R*T))*exp(80600/(R*296));
 
 % Separator parameters
