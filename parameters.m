@@ -19,12 +19,12 @@ dx = 1/(N - 1);         % constant grid step along X axis (dimensionless)
 dr = 1/(M - 1);         % constant grid step along radius of the particles (dimensionless)
 hx = dx*L;              % constant grid step along X axis, m
 
-I0 = 0.01;              % maximum current draw (1C current = 0.15625 A), A
+I0 = 0.15625;              % maximum current draw (1C current = 0.15625 A), A
 t0 = 0;                 % charge/discharge period (set 0 if I = I0 = const), s
 Rc = 0;                 % total contact resistance, Ohm
 tplus = 0.26;           % transference number
 C_SEI = 0.068;          % capacity loss due to SEI
-T = 298;                % absolute temperature, K
+T = 296;                % absolute temperature, K
 F = 96487;              % Faraday's constant, C mol^-1
 R = 8.3144;             % universal gas constant, J mol^-1 K^-1
 
